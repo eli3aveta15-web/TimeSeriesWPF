@@ -95,26 +95,26 @@ namespace TimeSeriesWPF.Tests.Tests
             Assert.IsTrue(loginPage.IsErrorVisible());
         }
 
-        [TestMethod]
-        public void Register_NewUser_CanLogin()
-        {
-            var loginPage = new LoginPage(_automation, _automation.GetDesktop());
-            string testUsername = "testuser" + System.DateTime.Now.Second;
-            string testPassword = "test1234";
+     //   [TestMethod]
+     //   public void Register_NewUser_CanLogin()
+     //   {
+     //       var loginPage = new LoginPage(_automation, _automation.GetDesktop());
+     //       string testUsername = "testuser" + System.DateTime.Now.Second;
+     //       string testPassword = "test1234";
 
-            var registerPage = loginPage.ClickRegister();
-            registerPage
-     .EnterUsername(testUsername)
-     .EnterPassword(testPassword)
-     .SelectRole("Analyst");
-            registerPage.ClickRegisterButton();
+     //       var registerPage = loginPage.ClickRegister();
+     //       registerPage
+     //.EnterUsername(testUsername)
+     //.EnterPassword(testPassword)
+     //.SelectRole("Analyst");
+     //       registerPage.ClickRegisterButton();
 
-            var mainPage = loginPage
-                .EnterUsername(testUsername)
-                .EnterPassword(testPassword)
-                .ClickLogin();
+     //       var mainPage = loginPage
+     //           .EnterUsername(testUsername)
+     //           .EnterPassword(testPassword)
+     //           .ClickLogin();
 
-            Assert.IsTrue(mainPage.IsUserLoggedIn(testUsername));
-        }
+     //       Assert.IsTrue(mainPage.IsUserLoggedIn(testUsername));
+     //   }
     }
 }

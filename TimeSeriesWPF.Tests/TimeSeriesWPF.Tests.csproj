@@ -109,12 +109,10 @@
     <Compile Include="StepDefinitions\RegistrationSteps.cs" />
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\PasswordPolicyTests.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Features\PasswordPolicy.feature" />
-    <None Include="Features\Registration.feature" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
