@@ -24,8 +24,7 @@ jobs:
           nuget-version: 'latest'
 
       - name: Restore NuGet packages
-        run: nuget restore TimeSeriesWPF.sln
-
+        run: nuget restore TimeSeriesWPF/TimeSeriesWPF.sln
       - name: Build Solution
         run: msbuild TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Rebuild /logger:"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestPlatform\Microsoft.VisualStudio.TestPlatform.Build.dll"
 
