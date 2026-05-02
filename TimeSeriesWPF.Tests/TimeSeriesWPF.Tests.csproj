@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\TimeSeriesWPF\packages\SpecFlow.MsTest.3.9.74\build\SpecFlow.MsTest.props" Condition="Exists('..\TimeSeriesWPF\packages\SpecFlow.MsTest.3.9.74\build\SpecFlow.MsTest.props')" />
-  <Import Project="..\TimeSeriesWPF\packages\SpecFlow.Tools.MsBuild.Generation.3.9.74\build\SpecFlow.Tools.MsBuild.Generation.props" Condition="Exists('..\TimeSeriesWPF\packages\SpecFlow.Tools.MsBuild.Generation.3.9.74\build\SpecFlow.Tools.MsBuild.Generation.props')" />
   <Import Project="..\TimeSeriesWPF\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.props" Condition="Exists('..\TimeSeriesWPF\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -69,9 +67,6 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SpecFlow.Internal.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <HintPath>..\TimeSeriesWPF\packages\SpecFlow.Internal.Json.1.0.8\lib\net45\SpecFlow.Internal.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.CodeDom, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\TimeSeriesWPF\packages\System.CodeDom.8.0.0\lib\net462\System.CodeDom.dll</HintPath>
@@ -92,31 +87,17 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="TechTalk.SpecFlow, Version=3.9.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <HintPath>..\TimeSeriesWPF\packages\SpecFlow.3.9.74\lib\net461\TechTalk.SpecFlow.dll</HintPath>
-    </Reference>
-    <Reference Include="TechTalk.SpecFlow.MSTest.SpecFlowPlugin, Version=3.9.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <HintPath>..\TimeSeriesWPF\packages\SpecFlow.MsTest.3.9.74\lib\net461\TechTalk.SpecFlow.MSTest.SpecFlowPlugin.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PageObjects\LoginPage.cs" />
     <Compile Include="PageObjects\MainPage.cs" />
     <Compile Include="PageObjects\RegisterPage.cs" />
-    <Compile Include="StepDefinitions\AuthorizationSteps.cs" />
-    <Compile Include="StepDefinitions\PasswordPolicySteps.cs" />
-    <Compile Include="StepDefinitions\RegistrationSteps.cs" />
-    <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\PasswordPolicyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Features\PasswordPolicy.feature" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Features\Authorization.feature" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TimeSeriesWPF\TimeSeriesWPF.csproj">
@@ -133,15 +114,7 @@
     <Error Condition="!Exists('..\TimeSeriesWPF\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\TimeSeriesWPF\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.props'))" />
     <Error Condition="!Exists('..\TimeSeriesWPF\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\TimeSeriesWPF\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets'))" />
     <Error Condition="!Exists('..\TimeSeriesWPF\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\TimeSeriesWPF\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets'))" />
-    <Error Condition="!Exists('..\TimeSeriesWPF\packages\SpecFlow.3.9.74\build\SpecFlow.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\TimeSeriesWPF\packages\SpecFlow.3.9.74\build\SpecFlow.targets'))" />
-    <Error Condition="!Exists('..\TimeSeriesWPF\packages\SpecFlow.Tools.MsBuild.Generation.3.9.74\build\SpecFlow.Tools.MsBuild.Generation.props')" Text="$([System.String]::Format('$(ErrorText)', '..\TimeSeriesWPF\packages\SpecFlow.Tools.MsBuild.Generation.3.9.74\build\SpecFlow.Tools.MsBuild.Generation.props'))" />
-    <Error Condition="!Exists('..\TimeSeriesWPF\packages\SpecFlow.Tools.MsBuild.Generation.3.9.74\build\SpecFlow.Tools.MsBuild.Generation.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\TimeSeriesWPF\packages\SpecFlow.Tools.MsBuild.Generation.3.9.74\build\SpecFlow.Tools.MsBuild.Generation.targets'))" />
-    <Error Condition="!Exists('..\TimeSeriesWPF\packages\SpecFlow.MsTest.3.9.74\build\SpecFlow.MsTest.props')" Text="$([System.String]::Format('$(ErrorText)', '..\TimeSeriesWPF\packages\SpecFlow.MsTest.3.9.74\build\SpecFlow.MsTest.props'))" />
-    <Error Condition="!Exists('..\TimeSeriesWPF\packages\SpecFlow.MsTest.3.9.74\build\SpecFlow.MsTest.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\TimeSeriesWPF\packages\SpecFlow.MsTest.3.9.74\build\SpecFlow.MsTest.targets'))" />
   </Target>
   <Import Project="..\TimeSeriesWPF\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets" Condition="Exists('..\TimeSeriesWPF\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets')" />
   <Import Project="..\TimeSeriesWPF\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\TimeSeriesWPF\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
-  <Import Project="..\TimeSeriesWPF\packages\SpecFlow.3.9.74\build\SpecFlow.targets" Condition="Exists('..\TimeSeriesWPF\packages\SpecFlow.3.9.74\build\SpecFlow.targets')" />
-  <Import Project="..\TimeSeriesWPF\packages\SpecFlow.Tools.MsBuild.Generation.3.9.74\build\SpecFlow.Tools.MsBuild.Generation.targets" Condition="Exists('..\TimeSeriesWPF\packages\SpecFlow.Tools.MsBuild.Generation.3.9.74\build\SpecFlow.Tools.MsBuild.Generation.targets')" />
-  <Import Project="..\TimeSeriesWPF\packages\SpecFlow.MsTest.3.9.74\build\SpecFlow.MsTest.targets" Condition="Exists('..\TimeSeriesWPF\packages\SpecFlow.MsTest.3.9.74\build\SpecFlow.MsTest.targets')" />
 </Project>
