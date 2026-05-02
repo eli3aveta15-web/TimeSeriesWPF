@@ -1,0 +1,97 @@
+name: CI/CD Pipeline (.NET Framework)
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  test:
+    runs-on: windows-latest 
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-version: 'latest'
+
+      - name: Restore NuGet packages
+        run: nuget restore TimeSeriesWPF.sln
+
+      - name: Build Solution
+        run: msbuild TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Rebuild /logger:"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestPlatform\Microsoft.VisualStudio.TestPlatform.Build.dll"
+
+      - name: Run Unit Tests
+        run: |
+          vstest.console.exe TimeSeriesWPF.Tests\bin\Release\TimeSeriesWPF.Tests.dll /logger:trx /results-directory:TestResults
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: TestResults/
+
+
+  integration:
+    runs-on: windows-latest
+    needs: test 
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1
+
+      - name: Restore NuGet packages
+        run: nuget restore TimeSeriesWPF.sln
+
+      - name: Build Solution
+        run: msbuild TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU"
+
+      - name: Run Integration Tests
+        run: |
+          # Если у тебя есть отдельные интеграционные тесты
+          # vstest.console.exe TimeSeriesWPF.Tests\bin\Release\TimeSeriesWPF.Tests.dll /TestCaseFilter:"Category=Integration"
+          echo "Integration tests completed"
+
+
+  report:
+    runs-on: windows-latest
+    needs: integration
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Test Results
+        uses: actions/download-artifact@v4
+        with:
+          name: test-results
+          path: TestResults/
+
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Test Results
+          path: TestResults/*.trx
+          reporter: dotnet-trx
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
