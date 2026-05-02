@@ -1,0 +1,44 @@
+﻿<Window x:Class="TimeSeriesWPF.MainAppWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Прогнозирование временных рядов" Height="480" Width="620"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Главное меню" 
+                   FontSize="24" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+        <TextBlock Grid.Row="1" x:Name="txtUserInfo" 
+                   AutomationProperties.AutomationId="txtUserInfo"
+                   FontSize="14" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,0,0,25"
+                   FontWeight="Medium"/>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button Content="Выполнить интерполяцию" Width="220" Height="40" Margin="0,10"
+                    Click="BtnInterpolate_Click"/>
+
+            <Button Content="Выполнить экстраполяцию" Width="220" Height="40" Margin="0,10"
+                    Click="BtnExtrapolate_Click"/>
+
+            <Button Content="Выйти" Width="220" Height="40" Margin="0,10"
+                    Background="#FFE0E0E0" Click="BtnLogout_Click"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="3" x:Name="txtResult" 
+                   AutomationProperties.AutomationId="txtResult"
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Bottom"
+                   Margin="0,15,0,0" 
+                   FontSize="12"
+                   FontStyle="Italic"/>
+    </Grid>
+</Window>
