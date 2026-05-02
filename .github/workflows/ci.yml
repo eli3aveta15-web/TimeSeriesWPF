@@ -23,14 +23,22 @@ jobs:
           nuget-version: 'latest'
 
       - name: Restore NuGet packages
-        run: nuget restore TimeSeriesWPF/TimeSeriesWPF.sln 
+        run: nuget restore TimeSeriesWPF/TimeSeriesWPF.sln
 
       - name: Build Solution
-        run: msbuild TimeSeriesWPF/TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Rebuild  # ✅ Исправлен путь!
+        run: msbuild TimeSeriesWPF/TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Rebuild
 
       - name: Run Unit Tests
         run: |
-          vstest.console.exe TimeSeriesWPF.Tests/bin/Release/TimeSeriesWPF.Tests.dll /logger:trx /results-directory:TestResults
+          # Попробуем найти vstest.console.exe
+          $vstestPath = Get-ChildItem -Path "C:\Program Files" -Recurse -Filter "vstest.console.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if ($vstestPath) {
+            Write-Host "Found vstest.console.exe at: $($vstestPath.FullName)"
+            & $vstestPath.FullName TimeSeriesWPF.Tests\bin\Release\TimeSeriesWPF.Tests.dll /logger:trx /results-directory:TestResults
+          } else {
+            Write-Host "vstest.console.exe not found, using dotnet test"
+            dotnet test TimeSeriesWPF.Tests/TimeSeriesWPF.Tests.csproj --logger:trx --results-directory:TestResults --no-build
+          }
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
@@ -54,10 +62,10 @@ jobs:
         uses: nuget/setup-nuget@v1
 
       - name: Restore NuGet packages
-        run: nuget restore TimeSeriesWPF/TimeSeriesWPF.sln 
+        run: nuget restore TimeSeriesWPF/TimeSeriesWPF.sln
 
       - name: Build Solution
-        run: msbuild TimeSeriesWPF/TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU" !
+        run: msbuild TimeSeriesWPF/TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU"
 
       - name: Run Integration Tests
         run: |
