@@ -33,7 +33,7 @@ jobs:
           $vstestPath = Get-ChildItem -Path "C:\Program Files" -Recurse -Filter "vstest.console.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
           if ($vstestPath) {
             Write-Host "Found vstest.console.exe"
-            & $vstestPath.FullName TimeSeriesWPF.Tests\bin\Release\TimeSeriesWPF.Tests.dll /logger:trx /TestResultsDirectory:TestResults
+            & $vstestPath.FullName TimeSeriesWPF.Tests\bin\Release\TimeSeriesWPF.Tests.dll /logger:trx /ResultsDirectory:TestResults
           } else {
             Write-Host "vstest.console.exe not found"
             exit 1
