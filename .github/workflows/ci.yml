@@ -7,9 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-
   test:
-    runs-on: windows-latest 
+    runs-on: windows-latest
     
     steps:
       - name: Checkout code
@@ -24,13 +23,14 @@ jobs:
           nuget-version: 'latest'
 
       - name: Restore NuGet packages
-        run: nuget restore TimeSeriesWPF/TimeSeriesWPF.sln
+        run: nuget restore TimeSeriesWPF/TimeSeriesWPF.sln 
+
       - name: Build Solution
-        run: msbuild TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Rebuild /logger:"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestPlatform\Microsoft.VisualStudio.TestPlatform.Build.dll"
+        run: msbuild TimeSeriesWPF/TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Rebuild  # ✅ Исправлен путь!
 
       - name: Run Unit Tests
         run: |
-          vstest.console.exe TimeSeriesWPF.Tests\bin\Release\TimeSeriesWPF.Tests.dll /logger:trx /results-directory:TestResults
+          vstest.console.exe TimeSeriesWPF.Tests/bin/Release/TimeSeriesWPF.Tests.dll /logger:trx /results-directory:TestResults
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
@@ -39,10 +39,9 @@ jobs:
           name: test-results
           path: TestResults/
 
-
   integration:
     runs-on: windows-latest
-    needs: test 
+    needs: test
     
     steps:
       - name: Checkout code
@@ -55,17 +54,14 @@ jobs:
         uses: nuget/setup-nuget@v1
 
       - name: Restore NuGet packages
-        run: nuget restore TimeSeriesWPF.sln
+        run: nuget restore TimeSeriesWPF/TimeSeriesWPF.sln 
 
       - name: Build Solution
-        run: msbuild TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU"
+        run: msbuild TimeSeriesWPF/TimeSeriesWPF.sln /p:Configuration=Release /p:Platform="Any CPU" !
 
       - name: Run Integration Tests
         run: |
-          # Если у тебя есть отдельные интеграционные тесты
-          # vstest.console.exe TimeSeriesWPF.Tests\bin\Release\TimeSeriesWPF.Tests.dll /TestCaseFilter:"Category=Integration"
           echo "Integration tests completed"
-
 
   report:
     runs-on: windows-latest
@@ -88,9 +84,3 @@ jobs:
           name: Test Results
           path: TestResults/*.trx
           reporter: dotnet-trx
-
-      - name: Upload Coverage Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
